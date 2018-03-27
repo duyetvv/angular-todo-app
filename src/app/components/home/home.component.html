@@ -1,0 +1,8 @@
+<div class="todo-home">
+  <h1>Todo App</h1>
+  <form (submit)="addItem(itemName.value)">
+    <input #itemName type="text" name="itemName">
+    <button type="submit" (click)="addItem(itemName.value)">Add</button>
+  </form>
+  <app-list></app-list>
+</div>
