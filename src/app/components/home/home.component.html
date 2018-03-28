@@ -1,8 +1,14 @@
 <div class="todo-home">
   <h1>Todo App</h1>
-  <form (submit)="addItem(itemName.value)">
-    <input #itemName type="text" name="itemName">
-    <button type="submit" (click)="addItem(itemName.value)">Add</button>
+  <form (submit)="onSubmit($event)" class="todo-form">
+    <input [(ngModel)]="todo.name" type="text" name="itemName" class="todo-input">
+    <button class="todo-submit">Add</button>
   </form>
-  <app-list></app-list>
+  <div class="todo-list">
+    <div *ngFor="let todo of todos" class="todo-item">
+      <span>{{todo.id}}</span>
+      <span>{{todo.name}}</span>
+      <span class="todo-del" (click)="onDelete(todo)">x</span>
+    </div>
+  </div>
 </div>

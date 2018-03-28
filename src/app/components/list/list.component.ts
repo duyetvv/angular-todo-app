@@ -17,12 +17,8 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.todoService.getTodos()
-    .subscribe(todos => {
+    this.todoService.getTodos().subscribe(todos => {
       this.todos = todos;
     });
   }
-
-
-
 }

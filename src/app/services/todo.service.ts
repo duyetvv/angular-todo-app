@@ -13,7 +13,7 @@ const httpOptions = {
 
 @Injectable()
 export class TodoService {
-  private todosUrl: string = 'api/todos';
+  private todosUrl = 'api/todos';
 
   constructor(
     private http: HttpClient,
@@ -33,15 +33,14 @@ export class TodoService {
     this.logger.log('FETCH TODOS');
 
     return this.http.get<Todo[]>(this.todosUrl).pipe(
-      tap(todos => {
-        this.logger.log(todos)}),
+      tap(todos => this.logger.log(`fetched todos ${todos}`)),
       catchError(this.handleError('getTodos', []))
     )
   }
 
   addTodo(todo: Todo): Observable<Todo> {
     return this.http.post<Todo>(this.todosUrl, todo, httpOptions).pipe(
-      tap(res => this.logger.log(`added new todo id = ${todo.id}`)),
+      tap(res => this.logger.log(`added todo id = ${todo.id}, ${res}`)),
       catchError(this.handleError<Todo>('addTodo'))
     );
   }
@@ -49,9 +48,12 @@ export class TodoService {
   removeTodo(todo: Todo | number): Observable<Todo> {
     const id = typeof todo === 'number' ? todo : todo.id;
     const url = `${this.todosUrl}/${id}`;
-
+    debugger;
     return this.http.delete<Todo>(url, httpOptions).pipe(
-      tap(res => this.logger.log(`deleted todo id=${id}`)),
+      tap(res => {
+        debugger;
+        this.logger.log(`deleted todo id=${id}, ${res}`)
+      }),
       catchError(this.handleError<Todo>('removeTodo'))
     )
   }
