@@ -25,13 +25,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.todoService.getTodos().subscribe(todos => {
-      this.todos = todos;
+      this.todos = todos as Todo[];
     });
   }
 
   onDelete(todo: Todo) {
     this.todoService.removeTodo(todo).subscribe(res => {
-      debugger;
       console.log(res);
     })
   }
@@ -39,10 +38,15 @@ export class HomeComponent implements OnInit {
   onSubmit(evt) {
     evt.preventDefault();
     const length = this.todos.length;
-    this.todo.id = this.todos[length].id + 1;
+    this.todo.id = this.todos[length - 1].id + 1;
 
-    this.todoService.addTodo(this.todo).subscribe(_todo => {
-      this.todos.push(_todo)
+    this.todoService.addTodo(this.todo).subscribe(res => {
+      if (res.error) {
+        console.log(res.msg);
+        return;
+      }
+
+      this.todos.push(res as Todo);
     })
   }
 }

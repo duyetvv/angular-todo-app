@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 
 import { Todo } from '../models/todo';
 import { LogService } from '../services/log.service';
+import { debug } from 'util';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,7 +14,8 @@ const httpOptions = {
 
 @Injectable()
 export class TodoService {
-  private todosUrl = 'api/todos';
+  // private todosUrl = 'http://all.pre-prod.nissan.eu/etc/nissaneu/gms_app/data/test-drive.json';
+  private todosUrl = 'http://localhost/api/todos';
 
   constructor(
     private http: HttpClient,
@@ -38,8 +40,8 @@ export class TodoService {
     )
   }
 
-  addTodo(todo: Todo): Observable<Todo> {
-    return this.http.post<Todo>(this.todosUrl, todo, httpOptions).pipe(
+  addTodo(todo: Todo): Observable<any> {
+    return this.http.post<Todo>(this.todosUrl, todo).pipe(
       tap(res => this.logger.log(`added todo id = ${todo.id}, ${res}`)),
       catchError(this.handleError<Todo>('addTodo'))
     );
@@ -47,13 +49,9 @@ export class TodoService {
 
   removeTodo(todo: Todo | number): Observable<Todo> {
     const id = typeof todo === 'number' ? todo : todo.id;
-    const url = `${this.todosUrl}/${id}`;
-    debugger;
-    return this.http.delete<Todo>(url, httpOptions).pipe(
-      tap(res => {
-        debugger;
-        this.logger.log(`deleted todo id=${id}, ${res}`)
-      }),
+
+    return this.http.delete<Todo>(`this.todosUrl/${id}`).pipe(
+      tap(res => this.logger.log(`deleted todo id=${id}, ${res}`)),
       catchError(this.handleError<Todo>('removeTodo'))
     )
   }

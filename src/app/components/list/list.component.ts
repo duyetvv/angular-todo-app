@@ -18,7 +18,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.todoService.getTodos().subscribe(todos => {
-      this.todos = todos;
+      debugger;
+      this.todos = todos as Todo[];
     });
   }
 }
