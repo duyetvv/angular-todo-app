@@ -32,13 +32,17 @@ export class HomeComponent implements OnInit {
   onDelete(todo: Todo) {
     this.todoService.removeTodo(todo).subscribe(res => {
       console.log(res);
+      if (res && res.status) {
+        this.todos.splice(this.todos.findIndex(el => el.id === todo.id), 1);
+      }
     })
   }
 
   onSubmit(evt) {
     evt.preventDefault();
     const length = this.todos.length;
-    this.todo.id = this.todos[length - 1].id + 1;
+    const ids = this.todos.map(t => t.id);
+    this.todo.id = Math.max.apply(null, ids) + 1;
 
     this.todoService.addTodo(this.todo).subscribe(res => {
       if (res.error) {

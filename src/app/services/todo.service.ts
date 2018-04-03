@@ -50,7 +50,7 @@ export class TodoService {
   removeTodo(todo: Todo | number): Observable<Todo> {
     const id = typeof todo === 'number' ? todo : todo.id;
 
-    return this.http.delete<Todo>(`this.todosUrl/${id}`).pipe(
+    return this.http.delete<Todo>(`${this.todosUrl}/${id}`).pipe(
       tap(res => this.logger.log(`deleted todo id=${id}, ${res}`)),
       catchError(this.handleError<Todo>('removeTodo'))
     )
