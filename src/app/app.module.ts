@@ -1,36 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
-import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { ListComponent } from './components/list/list.component';
-import { ItemComponent } from './components/item/item.component';
-import { DetailComponent } from './components/detail/detail.component';
-import { AppRoutingModule } from './routing/app-routing.module';
-import { format } from 'util';
-import { TodoService } from './services/todo.service';
-import { LogService } from './services/log.service';
+import { TodosComponent } from './todos/todos.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    ListComponent,
-    ItemComponent,
-    DetailComponent
+    TodosComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    AppRoutingModule
   ],
-  providers: [TodoService, LogService],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(router: Router) {}
-}
+export class AppModule { }
