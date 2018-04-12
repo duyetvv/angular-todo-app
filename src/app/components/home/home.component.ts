@@ -29,6 +29,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  onEdit(todo: Todo) {
+
+  }
+
   onDelete(todo: Todo) {
     this.todoService.removeTodo(todo).subscribe(res => {
       console.log(res);

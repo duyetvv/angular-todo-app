@@ -65,3 +65,11 @@
   cursor: pointer;
   color: red;
 }
+
+.todo-item span.todo-edit {
+  text-transform: lowercase;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+  color: red;
+}

@@ -8,7 +8,7 @@
     <div *ngFor="let todo of todos" class="todo-item">
       <span>{{todo.id}}</span>
       <span>{{todo.name}}</span>
-      <span class="todo-del" (click)="onEdit(todo)">edit</span>
+      <span class="todo-edit" (click)="onEdit(todo)">edit</span>
       <span class="todo-del" (click)="onDelete(todo)">x</span>
     </div>
   </div>
